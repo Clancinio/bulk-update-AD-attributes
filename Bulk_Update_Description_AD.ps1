@@ -19,7 +19,7 @@ ForEach($User in $ADUsers)
     # Ppopulate hash table for Get-ADUser splatting:
     $GetParams =
     @{
-        Identity     = $User.Username  #Identity will be the IDIR
+        Identity     = $User.Username
         Server       = $server
         Credential   = $Credential
     }
@@ -29,8 +29,10 @@ ForEach($User in $ADUsers)
     @{
         Server       = $server
         Identity     = $User.Username
-        Description  = $User.Description
         
+        # Make sure these match the columns in CSV - these will be the attributes to update
+        Description  = $User.Description
+        Office       = $User.Office
     }
 
     # Check to see if the user already exists in AD. If they do, we update.
